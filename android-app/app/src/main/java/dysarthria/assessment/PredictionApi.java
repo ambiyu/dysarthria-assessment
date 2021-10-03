@@ -11,6 +11,6 @@ import retrofit2.http.Part;
 public interface PredictionApi {
 
     @Multipart
-    @POST("/")
+    @POST("/predict")
     Call<PredictionResponse> makePrediction(@Part MultipartBody.Part file);
 }
