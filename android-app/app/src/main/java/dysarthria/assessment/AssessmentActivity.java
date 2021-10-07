@@ -1,9 +1,7 @@
 package dysarthria.assessment;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
 import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.AudioFormat;
@@ -16,45 +14,31 @@ import com.devlomi.record_view.OnRecordListener;
 
 import java.io.IOException;
 
-import dysarthria.assessment.databinding.ActivitySpeechBinding;
+import dysarthria.assessment.databinding.ActivityAssessmentBinding;
 
-public class SpeechActivity extends AppCompatActivity {
+public class AssessmentActivity extends AppCompatActivity {
 
-    private ActivitySpeechBinding binding;
+    private ActivityAssessmentBinding binding;
     private WavAudioRecorder recorder;
-//    private MediaRecorder recorder;
     private MediaPlayer player;
+
+    private final String[] prompts = new String[]{ "compliment", "adjacent", "destruction" };
+    private int currentPromptIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivitySpeechBinding.inflate(getLayoutInflater());
+        binding = ActivityAssessmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.RECORD_AUDIO}, 200);
-
+        // Setup recording buttons and views
         binding.recordButton.setRecordView(binding.recordView);
         binding.recordView.setOnRecordListener(new OnRecordListener() {
             @Override
             public void onStart() {
-//                recorder = new MediaRecorder();
-//                recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-//                recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
-//                recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-//                recorder.setAudioEncodingBitRate(16*44100);
-//                recorder.setAudioSamplingRate(44100);
-//                recorder.setOutputFile(getExternalCacheDir().getAbsolutePath() + "/test.m4a");
-//
-//                try {
-//                    recorder.prepare();
-//                    recorder.start();
-//                } catch (Exception e) {
-//
-//                }
-
                 recorder = new WavAudioRecorder(MediaRecorder.AudioSource.MIC, 16000,
                         AudioFormat.CHANNEL_IN_MONO, AudioFormat.ENCODING_PCM_16BIT);
-                recorder.setOutputFile(getExternalCacheDir().getAbsolutePath() + "/test.wav");
+                recorder.setOutputFile(getExternalCacheDir().getAbsolutePath() + "/" + prompts[currentPromptIndex] + ".wav");
 
                 if (WavAudioRecorder.State.INITIALIZING == recorder.getState()) {
                     recorder.prepare();
@@ -69,25 +53,17 @@ public class SpeechActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
-//                recorder.stop();
-//                recorder.reset();
-//                recorder.release();
                 recorder.stop();
                 recorder.reset();
-                recorder = null;
             }
 
             @Override
             public void onFinish(long recordTime, boolean limitReached) {
-//                recorder.stop();
-//                recorder.reset();
-//                recorder.release();
-//                System.out.println("recorded");
-
                 recorder.stop();
                 recorder.reset();
-                recorder = null;
                 System.out.println("Time: " + recordTime);
+                binding.recordLayout.setVisibility(View.INVISIBLE);
+                binding.recordedLayout.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -95,17 +71,37 @@ public class SpeechActivity extends AppCompatActivity {
                 System.out.println("Less than a second");
                 recorder.stop();
                 recorder.reset();
-                recorder = null;
             }
         });
 
         binding.playButton.setOnClickListener((View v) -> {
-            play(getExternalCacheDir().getAbsolutePath() + "/test.wav");
+            play(getExternalCacheDir().getAbsolutePath() + "/" + prompts[currentPromptIndex] + ".wav");
         });
 
         binding.nextButton.setOnClickListener((View v) -> {
-            Intent intent = new Intent(this, ResultActivity.class);
-            startActivity(intent);
+
+            if (currentPromptIndex + 1 == prompts.length) {
+                Intent intent = new Intent(this, ResultActivity.class);
+                intent.putExtra("prompts", prompts);
+                startActivity(intent);
+            } else {
+                currentPromptIndex++;
+                int promptNumber = currentPromptIndex + 1;
+                binding.promptNum.setText("Prompt " + promptNumber);
+                binding.prompt.setText(prompts[currentPromptIndex]);
+                binding.recordLayout.setVisibility(View.VISIBLE);
+                binding.recordedLayout.setVisibility(View.INVISIBLE);
+
+//                if (currentPromptIndex + 1 == prompts.length) {
+//                    binding.nextButton.setText("Get Result");
+//                }
+            }
+
+        });
+
+        binding.recordAgainButton.setOnClickListener((View v) -> {
+            binding.recordedLayout.setVisibility(View.INVISIBLE);
+            binding.recordLayout.setVisibility(View.VISIBLE);
         });
     }
 

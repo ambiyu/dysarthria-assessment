@@ -33,7 +33,7 @@ def make_prediction():
     "intelligibility": mappings[predicted_index]
   }
 
-  # os.remove(filepath)
+  os.remove(filepath)
 
   return jsonify(data)
 

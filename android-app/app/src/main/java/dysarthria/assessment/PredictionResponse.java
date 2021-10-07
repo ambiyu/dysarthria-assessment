@@ -4,8 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class PredictionResponse {
 
+    @SerializedName("index")
     private int index;
 
+    @SerializedName("intelligibility")
     private String intelligibility;
 
     public int getIndex() {
