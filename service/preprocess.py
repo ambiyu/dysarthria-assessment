@@ -2,7 +2,7 @@ import librosa
 import numpy as np
 from matplotlib import cm
 
-DURATION_AUDIO = 10
+DURATION_AUDIO = 5
 SAMPLE_RATE = 16000
 MAX_LENGTH = DURATION_AUDIO * SAMPLE_RATE
 
