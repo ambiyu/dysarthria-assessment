@@ -22,7 +22,8 @@ public class AssessmentActivity extends AppCompatActivity {
     private WavAudioRecorder recorder;
     private MediaPlayer player;
 
-    private final String[] prompts = new String[]{ "compliment", "adjacent", "destruction" };
+    private final String[] prompts = new String[]
+            { "autobiography", "celebrity", "inalienable", "battleship", "ablutions" };
     private int currentPromptIndex = 0;
 
     @Override

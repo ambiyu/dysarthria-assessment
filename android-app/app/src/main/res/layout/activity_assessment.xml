@@ -6,36 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".AssessmentActivity">
 
-    <TextView
-        android:id="@+id/assessmentTitle"
-        android:layout_width="229dp"
-        android:layout_height="36dp"
-        android:text="Assessment"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/recordLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
 
-    <TextView
-        android:id="@+id/assessmentDesc"
-        android:layout_width="393dp"
-        android:layout_height="55dp"
-        android:text="Hold the microphone button and speak the word on the middle of the screen. Let go of the microphone button when recording is finished."
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="@+id/recordLayout"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintTop_toTopOf="parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/assessmentTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Assessment"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:typeface="normal" />
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/assessmentTitle"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:paddingHorizontal="10dp"
+                android:paddingBottom="12dp"
+                android:text="Hold the microphone button and speak the word on the middle of the screen. Let go of the microphone button when recording is finished."
+                android:textSize="6pt" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/promptNum"
@@ -54,7 +61,7 @@
         android:id="@+id/prompt"
         android:layout_width="409dp"
         android:layout_height="53dp"
-        android:text="compliment"
+        android:text="autobiography"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -125,11 +132,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/nextButton"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
             android:text="Next"
+            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
@@ -137,11 +145,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.9" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/playButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Play"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            app:strokeColor="#d9d9d9"
+            app:strokeWidth="1dp"
+            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.914"
@@ -149,11 +162,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.401" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/recordAgainButton"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
             android:text="Record Again"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black"
+            app:strokeColor="#d9d9d9"
+            app:strokeWidth="1dp"
+            app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
